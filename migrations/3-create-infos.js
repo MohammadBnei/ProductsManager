@@ -8,6 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      name: {
+        type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
       language: {
         type: Sequelize.STRING
       },
@@ -19,7 +25,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      restaurant_id: {
+      restaurantId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
@@ -28,7 +34,7 @@ module.exports = {
           as: 'restaurant_id'
         }
       },
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {

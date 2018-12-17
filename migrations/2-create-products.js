@@ -9,7 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       visibility: {
+        allowNull: false,
         type: Sequelize.BOOLEAN
+      },
+      price: {
+        allowNull: false,
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,
@@ -19,13 +24,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      restaurant_id: {
+      restaurantId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
           model: 'Restaurants',
-          key: 'id',
-          as: 'restaurant_id'
+          key: 'id'
         }
       }
     });

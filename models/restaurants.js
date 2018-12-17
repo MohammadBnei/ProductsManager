@@ -5,15 +5,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     }
-  }, {});
+  }, {
+    // disable the modification of table names; By default, sequelize will automatically
+    // transform all passed model names (first parameter of define) into plural.
+    // if you don't want that, set the following
+    freezeTableName: true,
+    tableName: 'Restaurants',
+  });
   Restaurants.associate = function(models) {
     // associations can be defined here
-    Restaurants.hasMany(models.Infos, {
-      foreignKey: 'restaurant_id',
+    models.Restaurants.hasMany(models.Infos, {
+      foreignKey: 'restaurantId',
       as: 'infos'
     })
-    Restaurants.hasMany(models.Products, {
-      foreignKey: 'restaurant_id',
+    models.Restaurants.hasMany(models.Products, {
+      foreignKey: 'restaurantId',
       as: 'products'
     })
   };

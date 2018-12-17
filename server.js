@@ -2,6 +2,8 @@ const express = require('express');
 const logger = require('morgan');
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
  
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -11,6 +13,18 @@ app.use(bodyParser.urlencoded({
 // Log requests to the console.
 
 app.use(logger('dev'));
+
+// Initialize session
+
+app.use(cookieParser());
+app.use(session({
+    secret: 'secret'
+}));
+app.use((req, res, next) => {
+    // Initialize session with english language
+    req.session.language = 'en';
+    next();
+})
 
 //Models
 var models = require('./models');

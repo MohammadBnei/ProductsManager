@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "tastycloud",
-    "host": "127.0.0.1",
+    "database": "devdb",
+    "host": "192.168.99.100",
     "dialect": "mysql",
     "port": "3306" 
   },
