@@ -22,16 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Infos',
   });
   Infos.associate = function(models) {
-    // associations can be defined here
-    models.Infos.belongsTo(models.Restaurants, {
-      foreignKey: 'restaurantId',
-      onDelete: 'CASCADE'
-    })
-
-    models.Infos.belongsTo(models.Products, {
-      foreignKey: 'productId',
-      onDelete: 'CASCADE'
-    })
   };
   return Infos;
 };

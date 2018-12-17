@@ -16,7 +16,7 @@ module.exports = {
     getInfos(req, res) {
         return Infos
         .all()
-        .then(infos => res.status(201).send(infos))
+        .then(infos => res.status(200).send(infos))
         .catch(error => res.status(400).send(error))
     },
     getInfo(req, res) {

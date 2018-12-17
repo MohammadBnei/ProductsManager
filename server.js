@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
 const app = express();
+const routes = require('./routes/');
+const router = express.Router();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -18,7 +20,9 @@ app.use(logger('dev'));
 
 app.use(cookieParser());
 app.use(session({
-    secret: 'secret'
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
 }));
 app.use((req, res, next) => {
     // Initialize session with english language
@@ -26,18 +30,21 @@ app.use((req, res, next) => {
     next();
 })
 
+// Setting up the routes
+routes(router);
+app.use('/', router);
+
 //Models
 var models = require('./models');
  
 //Sync Database
-models.sequelize.sync().then(() => {
+models.sequelize.sync({
+    force: false
+}).then(() => {
     console.log('DB connection OK!')
 }).catch((err) => {
     console.log(err, 'Something went wrong with the DB Update!')
 })
- 
-//Require our routes into the application.
-require('./routes')(app)
 
 // default route
 app.get('*', (req, res) => res.status(200).send({

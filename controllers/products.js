@@ -5,8 +5,12 @@ const Sequelize = require('sequelize');
 module.exports = {
     // CRUD
     create(req, res) {
+        var restaurantId = req.session.restaurant ? req.session.restaurant.id : null;
         return Products
-        .create(req.body)
+        .create({
+            ...req.body,
+            restaurantId: restaurantId
+            })
         .then(product => res.status(201).send(product))
         .catch(error => res.status(400).send(error))
     },
@@ -50,4 +54,20 @@ module.exports = {
         .then(products => res.status(200).send(products))
         .catch(error => res.status(400).send(error))
     },
+
+    // Add a product with a name
+    addWithInfo(req, res) {
+        return Products
+        .create({
+            ...req.body,
+            infos: req.body.info,
+        }, {
+            icnlude: [{
+                model: Infos,
+                as: 'infos'
+            }]
+        })
+        .then(restaurant => res.sendStatus(201).send(restaurant))
+        .catch(error => res.status(400).send(error))
+    }
 }
