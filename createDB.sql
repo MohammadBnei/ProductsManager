@@ -11,7 +11,7 @@ CREATE TABLE Products (
     FOREIGN KEY (restaurant_id) REFERENCES Restaurants(id)
 );
 
-CREATE TABLE Infos (
+CREATE TABLE Info (
     id INT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255),

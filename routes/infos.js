@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router();
 const infosController = require('../controllers').infos;
 
 module.exports = (router) => {
-    // Infos CRUD request handling
+    // Info CRUD request handling
     router.get('/infos', infosController.getInfos)
     router.get('/info/:infoId', infosController.getInfo)
     router.post('/info', infosController.create)

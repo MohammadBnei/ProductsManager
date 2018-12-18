@@ -5,7 +5,9 @@
     "database": "devdb",
     "host": "192.168.99.100",
     "dialect": "mysql",
-    "port": "3306" 
+    "port": "3306",
+    "freezeTableName": true,
+    "operatorsAliases": false
   },
   "test": {
     "username": "root",

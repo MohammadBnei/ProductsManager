@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Products = sequelize.define('Products', {
+  const Product = sequelize.define('Product', {
     visibility: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -14,20 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     // transform all passed model names (first parameter of define) into plural.
     // if you don't want that, set the following
     freezeTableName: true,
-    tableName: 'Products',
+    tableName: 'Product',
   });
-  Products.associate = function(models) {
-    // Many Infos to One Products
-    models.Products.hasMany(models.Infos, {
+  Product.associate = function(models) {
+    // Many Info to One Product
+    Product.Info = Product.hasMany(models.Info, {
       foreignKey: 'productId',
       as: 'infos'
     })
 
-    // Many Products to One Restaurants
-    models.Products.belongsTo(models.Restaurants, {
+    // Many Product to One Restaurant
+    Product.Restaurant = Product.belongsTo(models.Restaurant, {
       foreignKey: 'restaurantId',
       onDelete: 'CASCADE'
     })
   };
-  return Products;
+  return Product;
 };

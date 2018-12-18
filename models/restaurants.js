@@ -1,27 +1,37 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Restaurants = sequelize.define('Restaurants', {
+  const Restaurant = sequelize.define('Restaurant', {
     address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     }
   }, {
     // disable the modification of table names; By default, sequelize will automatically
     // transform all passed model names (first parameter of define) into plural.
     // if you don't want that, set the following
     freezeTableName: true,
-    tableName: 'Restaurants',
+    tableName: 'Restaurant',
   });
-  Restaurants.associate = function(models) {
+  Restaurant.associate = (models) => {
     // associations can be defined here
-    models.Restaurants.hasMany(models.Infos, {
+    Restaurant.Info = Restaurant.hasMany(models.Info, {
       foreignKey: 'restaurantId',
-      as: 'infos'
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     })
-    models.Restaurants.hasMany(models.Products, {
+    Restaurant.Product = Restaurant.hasMany(models.Product, {
       foreignKey: 'restaurantId',
-      as: 'products'
+      onDelete: 'CASCADE'
     })
   };
-  return Restaurants;
-};
+
+Restaurant.getInfosByLanguage = (lang) => {
+  return this.getInfos({
+    where: {
+      language: lang,
+    }
+  })
+}
+
+  return Restaurant;
+}

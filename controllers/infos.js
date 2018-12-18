@@ -1,11 +1,11 @@
-const Infos = require ('../models').Infos;
-const Restaurants = require ('../models').Restaurants;
-const Products = require ('../models').Products;
+const Info = require ('../models').Info;
+const Restaurant = require ('../models').Restaurant;
+const Product = require ('../models').Product;
 
 module.exports = {
     // CRUD
     create(req, res) {
-        return Infos
+        return Info
         .create({
             ...req.body,
             language: req.body.language,
@@ -14,19 +14,19 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     getInfos(req, res) {
-        return Infos
+        return Info
         .all()
         .then(infos => res.status(200).send(infos))
         .catch(error => res.status(400).send(error))
     },
     getInfo(req, res) {
-        return Infos
+        return Info
         .findById(req.params.infoId)
         .then(info => res.status(200).send(info))
         .catch(error => res.status(400).send(error))
     },
     delete(req, res) {
-        return Infos
+        return Info
         .destroy({
             where: { id: req.params.infoId }
         })
@@ -34,7 +34,7 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     update(req, res){
-        return Infos
+        return Info
         .update(req.body, {
             where: {id: req.params.infoId}
         })
@@ -45,7 +45,7 @@ module.exports = {
     // Fetch all infos from a restaurant
     getRestaurantInfos(req, res) {
         var id = req.session.restaurant ? req.session.restaurant.id : req.params.restaurantId;
-        return Infos
+        return Info
         .findAll({
             where: {
                 language: req.session.language,
@@ -59,7 +59,7 @@ module.exports = {
     // Fetch all infos from a product
     getProductInfos(req, res) {
         var id = req.session.product ? req.session.product.id : req.params.productId;
-        return Infos
+        return Info
         .findAll({
              where: {
                 language: req.session.language,

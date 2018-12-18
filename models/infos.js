@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Infos = sequelize.define('Infos', {
+  const Info = sequelize.define('Info', {
     language: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -19,9 +19,17 @@ module.exports = (sequelize, DataTypes) => {
     // transform all passed model names (first parameter of define) into plural.
     // if you don't want that, set the following
     freezeTableName: true,
-    tableName: 'Infos',
+    tableName: 'Info',
   });
-  Infos.associate = function(models) {
+  Info.associate = function(models) {
+    Info.belongsTo(models.Restaurant, {
+      foreignKey: 'restaurantId'
+    });
+
+    Info.belongsTo(models.Product, {
+      foreignKey: 'productId'
+    });
   };
-  return Infos;
+  
+  return Info;
 };

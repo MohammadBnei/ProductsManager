@@ -30,21 +30,21 @@ app.use((req, res, next) => {
     next();
 })
 
-// Setting up the routes
-routes(router);
-app.use('/', router);
-
 //Models
 var models = require('./models');
  
 //Sync Database
 models.sequelize.sync({
-    force: false
+    force: true
 }).then(() => {
     console.log('DB connection OK!')
 }).catch((err) => {
     console.log(err, 'Something went wrong with the DB Update!')
 })
+
+// Setting up the routes
+routes(router);
+app.use('/', router);
 
 // default route
 app.get('*', (req, res) => res.status(200).send({
