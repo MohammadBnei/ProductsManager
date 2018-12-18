@@ -10,9 +10,6 @@ module.exports = (router) => {
     router.put('/restaurant/:restaurantId', restaurantsController.update)
     router.delete('/restaurant/:restaurantId', restaurantsController.delete)
 
-    // Add a restaurant with Info
-    router.post('/restaurant/addWithInfo', restaurantsController.addWithInfo)
-
     // Get all infos in a langage from a restaurant
     router.get('/restaurant/infos/list',sessionUtils.checkSessionRestaurant, restaurantsController.getRestaurantInfos)
 

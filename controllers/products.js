@@ -48,10 +48,11 @@ module.exports = {
 
     // Fetch all products from a restaurant
     getRestaurantProducts(req, res) {
+        var id = req.params.restaurantId || req.session.restaurant.id
         return models.Product
         .findAll({
             where: {
-                restaurantId: req.params.restaurantId
+                restaurantId: id
             }
         })
         .then(products => res.status(200).send(products))
