@@ -19,20 +19,24 @@ module.exports = {
     },
     getProducts(req, res) {
         return models.Product
-        .all()
+        .all({
+            include: [models.Info]
+        })
         .then(products => res.status(200).send(products))
         .catch(error => res.status(400).send(error))
     },
     getProduct(req, res) {
         return models.Product
-        .findById(req.params.productId)
+        .findByPk(req.params.id,{
+            include: [models.Info]
+        })
         .then(product => res.status(200).send(product))
         .catch(error => res.status(400).send(error))
     },
     delete(req, res) {
         return models.Product
         .destroy({
-            where: { id: req.params.productId }
+            where: { id: req.params.id }
         })
         .then(product => res.sendStatus(200).send(product))
         .catch(error => res.status(400).send(error))
@@ -40,7 +44,8 @@ module.exports = {
     update(req, res){
         return models.Product
         .update(req.body, {
-            where: {id: req.params.productId}
+            where: {id: req.params.id},
+            include: [models.Info]
         })
         .then(product => res.status(200).send(product))
         .catch(error => res.status(400).send(error))
@@ -48,12 +53,13 @@ module.exports = {
 
     // Fetch all products from a restaurant
     getRestaurantProducts(req, res) {
-        var id = req.params.restaurantId || req.session.restaurant.id
+        var id = req.params.id || req.session.restaurant.id
         return models.Product
         .findAll({
             where: {
                 restaurantId: id
-            }
+            },
+            include: [{ all:true }]
         })
         .then(products => res.status(200).send(products))
         .catch(error => res.status(400).send(error))

@@ -26,7 +26,10 @@ app.use(session({
 }));
 app.use((req, res, next) => {
     // Initialize session with english language
-    req.session.language = 'en';
+    req.session.language = {
+        util: 'en',
+        display: 'English'
+    };
     next();
 })
 
@@ -52,7 +55,7 @@ app.get('*', (req, res) => res.status(200).send({
     })
 );
 
-const port = parseInt(process.env.PORT, 10) || 8080;
+const port = process.env.PORT || 8080;
 // port must be set to 8080 because incoming http requests are routed from port 80 to port 8080
 app.listen(port, function () {
     console.log('Node app is running on port :',port);

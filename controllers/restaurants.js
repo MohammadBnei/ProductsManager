@@ -18,7 +18,14 @@ module.exports = {
         return models.Restaurant
         .findAll({
             subQuery: false,
-            include: [{ all:true }]
+            include: [{
+                model: models.Product
+            }, {
+                model: models.Info,
+                where: {
+                    language: req.session.language.util
+                }
+            }]
         })
         .then(restaurants => res.status(200).send(restaurants))
         .catch(error => res.status(400).send(error))
@@ -26,7 +33,16 @@ module.exports = {
     // Fetch a restaurant by its id
     getRestaurant(req, res) {
         return models.Restaurant
-        .findById(req.params.restaurantId)
+        .findByPk(req.params.id, {
+            include: [{
+                model: models.Product
+                }, {
+                model: models.Info,
+                where: {
+                    language: req.session.language.util
+                }
+            }]
+        })
         .then(restaurant => res.status(200).send(restaurant))
         .catch(error => res.status(400).send(error))
     },
@@ -36,7 +52,7 @@ module.exports = {
             address: req.body.address
         }, {
             where: {
-                id: req.params.restaurantId
+                id: req.params.id
             }
         })
         .then(restaurant => res.status(200).send(restaurant))
@@ -47,7 +63,7 @@ module.exports = {
         .destroy({
             cascade: true,
             where: { 
-                id: req.params.restaurantId,
+                id: req.params.id,
             }
         })
         .then(restaurant => res.sendStatus(200).send(restaurant))
@@ -59,17 +75,5 @@ module.exports = {
         return req.session.restaurant.getInfosByLanguage(models, req.session.language)
         .then(restaurant => res.sendStatus(200).send(restaurant))
         .catch(error => res.status(400).send(error))
-    },
-
-    // Set the session's restaurant
-    setSessionRestaurant(req, res) {
-        console.log(req.params)
-        return models.Restaurant
-        .findByPk(req.params.restaurantId)
-        .then(restaurant => {
-            req.session.restaurant = restaurant;
-        res.status(200).send(restaurant);
-        })
-        .catch(error => res.status(400).send(error));
     },
 }
