@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     // Many Info to One Product
     Product.Info = Product.hasMany(models.Info, {
       foreignKey: 'productId',
-      as: 'infos'
+      onDelete: 'CASCADE'
     })
 
     // Many Product to One Restaurant

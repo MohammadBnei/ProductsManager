@@ -19,16 +19,27 @@ module.exports = {
     },
     getProducts(req, res) {
         return models.Product
-        .all({
-            include: [models.Info]
+        .findAll({
+            include: [{
+                model: models.Info,
+                where: {
+                    language: req.session.language.util
+                }
+            }]
         })
         .then(products => res.status(200).send(products))
         .catch(error => res.status(400).send(error))
     },
     getProduct(req, res) {
         return models.Product
-        .findByPk(req.params.id,{
-            include: [models.Info]
+        .findByPk(req.params.id, {
+            subQuery: false,
+            include: [{
+                model: models.Info,
+                where: {
+                    language: req.session.language.util
+                }
+            }]
         })
         .then(product => res.status(200).send(product))
         .catch(error => res.status(400).send(error))
