@@ -1,14 +1,14 @@
-CREATE TABLE Restaurants (
+CREATE TABLE Restaurant (
     id INT NOT NULL PRIMARY KEY,
     address VARCHAR(255)
 );
 
-CREATE TABLE Products (
+CREATE TABLE Product (
     id INT NOT NULL PRIMARY KEY,
     visibility BOOLEAN,
     price FLOAT,
-    restaurant_id INT,
-    FOREIGN KEY (restaurant_id) REFERENCES Restaurants(id)
+    restaurantId INT,
+    FOREIGN KEY (restaurantId) REFERENCES Restaurants(id)
 );
 
 CREATE TABLE Info (
@@ -16,8 +16,8 @@ CREATE TABLE Info (
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     language VARCHAR(5) NOT NULL,
-    restaurant_id INT,
-    FOREIGN KEY (restaurant_id) REFERENCES Restaurants(id),
-    product_id INT,
-    FOREIGN KEY (product_id) REFERENCES Products(id)
+    restaurantId INT,
+    FOREIGN KEY (restaurantId) REFERENCES Restaurants(id),
+    productId INT,
+    FOREIGN KEY (productId) REFERENCES Products(id)
 );

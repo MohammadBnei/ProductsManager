@@ -6,6 +6,7 @@ module.exports = {
         }
         next();
     },
+    
     checkId(req, res, next) {
         if (req.params.id && req.params.id.isNaN && req.params.id <= 0){
             let err = new Error('There is an error with the id provided')

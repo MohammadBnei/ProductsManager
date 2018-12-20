@@ -1,8 +1,6 @@
 const commonController = require('../controllers').common;
-const sessionUtils = require('../middleware/sessionUtils');
 
 module.exports = (router) => {
-    router.use('/', sessionUtils.checkId)
     // Get session's restaurant
     router.get('/session/restaurant', commonController.getSessionRestaurant)
     // Set session's restaurant 

@@ -26,7 +26,7 @@ app.use(session({
 }));
 app.use((req, res, next) => {
     // Initialize session with english language
-    req.session.language = {
+    req.session.language = req.session.language || {
         util: 'en',
         display: 'English'
     };
@@ -38,7 +38,7 @@ var models = require('./models');
  
 //Sync Database
 models.sequelize.sync({
-    force: true
+    force: false
 }).then(() => {
     console.log('DB connection OK!')
 }).catch((err) => {

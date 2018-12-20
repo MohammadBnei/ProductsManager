@@ -11,10 +11,13 @@
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "password": "password",
+    "database": "testdb",
+    "host": "192.168.99.100",
+    "dialect": "mysql",
+    "port": "3306",
+    "freezeTableName": true,
+    "operatorsAliases": false
   },
   "production": {
     "username": "root",

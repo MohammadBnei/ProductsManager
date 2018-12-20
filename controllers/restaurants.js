@@ -15,6 +15,7 @@ module.exports = {
         .catch(error => res.status(400).send(error))
     },
     getRestaurants(req, res) {
+        console.log(req.session.language)
         return models.Restaurant
         .findAll({
             subQuery: false,
@@ -48,9 +49,7 @@ module.exports = {
     },
     update(req, res){
         return models.Restaurant
-        .update({
-            address: req.body.address
-        }, {
+        .update(req.body, {
             where: {
                 id: req.params.id
             }

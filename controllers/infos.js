@@ -6,7 +6,7 @@ module.exports = {
         return Info
         .create({
             ...req.body,
-            language: req.body.language,
+            language: req.session.language.util,
         })
         .then(info => res.status(201).send(info))
         .catch(error => res.status(400).send(error))

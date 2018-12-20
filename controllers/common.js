@@ -10,7 +10,8 @@ module.exports = {
     },
     // Set the session's language
     setSessionLanguage(req, res) {
-        req.session.language = req.body.lang;
+        req.session.language = req.body;
+        console.log(req.session.language, req.body)
         return res.status(200).send(req.session.language);
     },
     // Get the session's restaurant
@@ -19,12 +20,20 @@ module.exports = {
     },
     // Set the session's restaurant
     setSessionRestaurant(req, res) {
-        console.log(req.body)
         return models.Restaurant
-        .findByPk(req.body.restaurant.id)
+        .findByPk(req.body.id, {
+            subQuery: false,
+            include: [{
+                model: models.Info,
+                where: {
+                    language: req.session.language.util
+                }
+            }]
+        })
         .then(restaurant => {
             req.session.restaurant = restaurant;
-        res.status(200).send(restaurant);
+            console.log('Changed session\'s restaurant !', JSON.stringify(req.session.restaurant))
+            res.status(200).send(restaurant);
         })
         .catch(error => res.status(400).send(error));
     },

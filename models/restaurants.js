@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 Restaurant.getInfosByLanguage = (lang) => {
   return this.getInfos({
     where: {
-      language: lang,
+      language: lang.util,
     }
   })
 }

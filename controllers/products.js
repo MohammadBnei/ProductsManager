@@ -3,15 +3,18 @@ const models = require ('../models');
 module.exports = {
     // CRUD
     create(req, res) {
+        console.log(req.body)
         models.Product.create({
             ...req.body,
             restaurantId: req.session.restaurant.id
             })
         .then(product => {
-            var infos = req.body.infos
+            var infos = req.body.Infos
             infos.forEach((info) => {
+                console.log(info)
                 info.productId = product.id
                 models.Info.create(info)
+                .then(res => console.log(res))
             })
             res.status(201).send({product, infos})
         })
@@ -55,10 +58,15 @@ module.exports = {
     update(req, res){
         return models.Product
         .update(req.body, {
-            where: {id: req.params.id},
-            include: [models.Info]
+            where: {id: req.params.id}
         })
-        .then(product => res.status(200).send(product))
+        .then(product => {
+            var info = req.body.Infos ? req.body.Infos[0] : null;
+            if (info) models.Info.update(info, {
+                where: {id: info.id}
+            })             
+            res.status(200).send(product)
+        })
         .catch(error => res.status(400).send(error))
     },
 
