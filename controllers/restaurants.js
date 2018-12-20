@@ -50,9 +50,14 @@ module.exports = {
     update(req, res){
         return models.Restaurant
         .update(req.body, {
-            where: {
-                id: req.params.id
-            }
+            where: {id: req.params.id}
+        })
+        .then(restaurant => {
+            var info = req.body.Infos ? req.body.Infos[0] : null;
+            if (info) models.Info.update(info, {
+                where: {id: info.id}
+            })
+            .then(res => res.status(200).send(restaurant))
         })
         .then(restaurant => res.status(200).send(restaurant))
         .catch(error => res.status(400).send(error))

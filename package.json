@@ -1,6 +1,6 @@
 {
   "name": "tastycloud",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A web RESTful CRUD API to manage products of restaurants",
   "main": "app.js",
   "scripts": {
