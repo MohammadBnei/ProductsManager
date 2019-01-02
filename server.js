@@ -38,7 +38,7 @@ var models = require('./models');
  
 //Sync Database
 models.sequelize.sync({
-    force: false
+    force: true
 }).then(() => {
     console.log('DB connection OK!')
 }).catch((err) => {

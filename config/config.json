@@ -11,8 +11,8 @@
   },
   "test": {
     "username": "root",
-    "password": "password",
-    "database": "testdb",
+    "password": "PASSWORD",
+    "database": "devdb",
     "host": "192.168.99.100",
     "dialect": "mysql",
     "port": "3306",
